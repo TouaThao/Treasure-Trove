@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { GET_LOCATION_ACTION } from '../../redux/actions/LocationAction'
-import NavLogin from '../Nav/NavLogin'
+// import NavLogin from '../Nav/NavLogin'
+import Nav from '../Nav/Nav'
+
+//css 
+import '../../styles/RegisterLocation.css'
 
 
 //material ui
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 const mapStateToProps = (state) => ({
@@ -13,7 +18,7 @@ const mapStateToProps = (state) => ({
 }
 );
 
-export class RegisterLocation extends Component {
+class RegisterLocation extends Component {
 
   constructor(props) {
     super(props);
@@ -60,22 +65,27 @@ export class RegisterLocation extends Component {
   render() {
     return (
       <div>
-      <NavLogin/>
-      <form onSubmit={this.handleGetInfoExceptGeoCode}>
-        <h2>Register You're Business</h2>
-        <div>
-          <label htmlFor="Name">
-            Name:
-              <input
-              type="text"
-              name="Name"
+        <Nav />
+        <form id="post" onSubmit={this.handleGetInfoExceptGeoCode}>
+          <h2>Register Your Business</h2>
+          <div>
+            <TextField
+              id="Business Name"
+              label="Business Name"
+              margin="normal"
               value={this.state.name}
               onChange={this.handleInputChangeFor('name')}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="Address">
+          </div>
+          <div>
+            <TextField
+              id="Business Address"
+              label="Business Address"
+              margin="normal"
+              value={this.state.address}
+              onChange={this.handleInputChangeFor('address')}
+            />
+            {/* <label htmlFor="Address">
             Address:
               <input
               type="text"
@@ -83,34 +93,36 @@ export class RegisterLocation extends Component {
               value={this.state.address}
               onChange={this.handleInputChangeFor('address')}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="City">
-            City:
-              <input
-              type="text"
-              name="City"
+          </label> */}
+          </div>
+          <TextField
+              id="City"
+              label="City"
+              margin="normal"
               value={this.state.city}
               onChange={this.handleInputChangeFor('city')}
             />
-          </label>
-          <p>Type of Business</p>
-          <select onChange= {this.handleInputChangeFor('vendor')} value={this.state.vendor}>
-            <option value=''selected disabled  ></option>
-            <option value='restaurants' >Restaurants</option>
-            <option value='service' >Service</option>
-            <option value='foodtruck' >FoodTruck</option>
-          </select>
-        </div>
-        <Button
-          color="primary"
-          type="submit"
-          name="submit"
-          value="Register"
-        >Register
+          <div>
+            <p>Type of Business</p>
+            <select onChange={this.handleInputChangeFor('vendor')} value={this.state.vendor}>
+              <option value='' selected disabled  ></option>
+              <option value='restaurants' >Restaurants</option>
+              <option value='service' >Service</option>
+              <option value='foodtruck' >FoodTruck</option>
+            </select>
+            <div>
+              <br>
+              </br>
+            </div>
+          </div>
+          <Button
+            variant="contained"
+            type="submit"
+            name="submit"
+            value="Register"
+          >Register
             </Button>
-      </form>
+        </form>
       </div>
     )
   }

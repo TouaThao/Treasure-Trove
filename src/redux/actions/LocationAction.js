@@ -3,6 +3,7 @@ export const GET_LOCATION_ACTION ={
     ADD: 'ADD_LOCATION',
     DELETE: 'DELETE_LOCATION',
     SET: 'SET_LOCATION',
+    UPDATE: 'UPDATE_NEWLOCATION'
 };
 
 
@@ -10,3 +11,4 @@ export const GET_LOCATION_ACTION ={
 export function getLocation(){
     return{ type: GET_LOCATION_ACTION.GET}
 }
+

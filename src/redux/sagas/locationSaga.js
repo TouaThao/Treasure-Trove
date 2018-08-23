@@ -1,6 +1,6 @@
-import { put, takeEvery, call } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
 import { GET_LOCATION_ACTION } from '../actions/LocationAction';
-import { AddLocation ,RunGeolocation } from '../requests/locationRequests';
+import { AddLocation ,RunGeolocation, } from '../requests/locationRequests';
 
 
 function* fetchLocation(action) {
@@ -20,6 +20,7 @@ function* fetchLocation(action) {
         console.log(error);
     };
 }
+
 
 function* locationSaga(){
 

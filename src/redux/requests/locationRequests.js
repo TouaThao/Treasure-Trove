@@ -1,7 +1,7 @@
 import axios from 'axios';
+
 //This is good
 export function AddLocation( action ){
-    console.log('addlocation', action)
     return axios.post('/api/place/location',action)
     .then(response => response.data)
     .catch((error) => { throw error; });
@@ -14,10 +14,14 @@ export function RunGeolocation( action ) {
       .catch((error) => { throw error; });
 
 }
-//
+//This is good
 export function runGetLatLong(){
     return axios.get('/api/place/address')
     .then(response => response.data)
     .catch((error) => { throw error; });
 }
+
+
+
+
 

@@ -14,12 +14,13 @@ import InfoPage from './components/InfoPage/InfoPage';
 import HomePage from './components/HomePage/HomePage';
 import EditPage from './components/EditProfile/EditProfile'
 import registerLocation from './components/RegisterLocation/RegisterLocation'
+import FeedBack from './components/OwnerFeedBackPage/OwnerFeedBackPage'
 
 import './styles/main.css';
 
 const App = () => (
   <div>
-    <Header title="Project Base" />
+    <Header title="Treasure Trove" />
     <Router>
       <Switch>
         <Redirect exact from="/" to="/home" />
@@ -46,6 +47,10 @@ const App = () => (
                 <Route
           path="/edit"
           component={EditPage}
+        />
+          <Route
+          path="/FeedBack"
+          component={FeedBack}
         />
                 <Route
           path="/registerlocation"

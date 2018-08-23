@@ -4,6 +4,7 @@ import { GET_LOCATION_ACTION } from '../actions/LocationAction'
 //map action
 import { GET_MAP } from '../actions/MapAction';
 
+
 const location = (state =[], action) =>{
     switch (action.type){
         case GET_LOCATION_ACTION.SET:
@@ -22,10 +23,18 @@ const mapLocation = ( state = [], action )=>{
     }
 }
 
-
+// const filterSearch = (state = [], action )=>{
+//     switch(action.type){
+//         case GET_LOCATION_ACTION.UPDATE:
+//         return action.payload
+//         default:
+//         return state
+//     }
+// }
 
 export default combineReducers ({
     location,
-    mapLocation
+    mapLocation,
+    // filterSearch,
 })
 

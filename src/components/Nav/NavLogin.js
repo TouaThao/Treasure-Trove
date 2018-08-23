@@ -24,12 +24,18 @@ class NavLogin extends Component {
     let linkb = null;
     if (this.props.userType === 'owner') {
       linkb =
-
-        <li>
-          <Link to="/registerlocation">
-            Location
-      </Link>
+      <ul>
+      <li>
+              <Link to="/registerlocation">
+              Location
+        </Link>
         </li>
+        <li>
+              <Link to="/FeedBack">
+              FeedBack
+        </Link>
+        </li>
+        </ul>
         ;
     } else {
       linkb = ''
@@ -53,7 +59,9 @@ class NavLogin extends Component {
                 Edit Profile
         </Link>
             </li>
+            <li>
             {linkb}
+            </li>
             <li>
               <Logout></Logout>
             </li>

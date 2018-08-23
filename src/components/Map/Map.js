@@ -2,24 +2,26 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import './map.css';
-
 //action
 import { GET_MAP } from '../../redux/actions/MapAction'
 
 //componenet 
 import SearchBar from '../Map/SearchBar'
 
+//Child componenet
+
 
 const mapStateToProps = state => ({
     user: state.user,
     reduxState: state,
-    filter: state,
+    map: state.map
 });
 
 class MapContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            showNewSearch :'' ,
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
@@ -35,14 +37,20 @@ class MapContainer extends Component {
 
     }
 
+    onChangeLinkName(newName){
+        this.setState({
+            showNewSearch : newName
+        })
+    }
+
     onMarkerClick = (props, marker, e) => {
         this.setState({
-            // selectedPlace: props,
             selectedPlace: this.props.reduxState.map.mapLocation[props.name],
             activeMarker: marker,
             showingInfoWindow: true
         });
     }
+
     onMapClick = (props) => {
         if (this.state.showingInfoWindow) {
             this.setState({
@@ -51,32 +59,53 @@ class MapContainer extends Component {
             });
         }
     }
-
+    
     componentDidMount() {
         // this.props.dispatch({ type: USER_INFO.FETCH_USERINFO })
         this.props.dispatch({ type: GET_MAP.GET });
     }
 
+    // pushToFeedback = (event) => {
+    //     event.preventDefault();
+    //     // this.props.history.push('/feedback')
+    //     console.log('Are we getting this stuff')
+    // }
+
+    handle = (event) => {
+        console.log('did we get this?')
+    }
 
     render() {
-
         console.log('catzilla', this.props.reduxState)
         let mapLatLong = this.props.reduxState.map.mapLocation;
-        let mapMarker = mapLatLong.map(((mapLatLong, i) => {
+        const lowercasedFilter = this.state.showNewSearch.toLowerCase();
+        const filteredData = mapLatLong.filter(item => {
+          if (Object.keys(item).some(key =>
+            item.address.toLowerCase().includes(lowercasedFilter))){
+                return item;
+            }
+          return Object.keys(item).some(key =>
+            item.name.toLowerCase().includes(lowercasedFilter)
+          );
+        });
+
+        let mapMarker = filteredData.map(((place, i) => {
             return (
                 <Marker key={i}
-                    name={i}
+                    name={place.index}
+                    visible={true}
                     onClick={this.onMarkerClick}
-                    position={{ lng: mapLatLong.longitude, lat: mapLatLong.latitude }}>
+                    position={{ lng: place.longitude, lat: place.latitude }}>
                 </Marker>
             )
         }))
-        console.log('we are testing stuff',this.filter)
+
         return (
             <div className="mapContainer">
-                <SearchBar/>
+                <SearchBar
+                onChange = {this.onChangeLinkName.bind(this)}
+                />
                 <Map
-                
                     onClick={this.onMapClick}
                     google={this.props.google}
                     zoom={this.state.zoom}
@@ -88,8 +117,11 @@ class MapContainer extends Component {
                         visible={this.state.showingInfoWindow}
                     >
                         <div>
-                            <h3>{this.state.selectedPlace.name}</h3>
-                            <h3>{this.state.selectedPlace.address}</h3>
+                            <h4>{this.state.selectedPlace.name}</h4>
+                            <h4>{this.state.selectedPlace.address}</h4>
+                            <h4>{this.state.selectedPlace.city}</h4>
+                            <h4>{this.state.selectedPlace.vendor}</h4>
+                            {/* <button onClick={this.handle}>Testing</button> */}
                         </div>
                     </InfoWindow>
                 </Map>

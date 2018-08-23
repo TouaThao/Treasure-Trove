@@ -1,70 +1,69 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { GET_LOCATION_ACTION } from '../../redux/actions/LocationAction';
+
+//material ui
+import Button from '@material-ui/core/Button';
+
+//css
+import '../../styles/SearchBar.css'
+
+const mapStateToProps = (state) => ({
+  map: state.map,
+}
+);
+
+
 
 class SearchBar extends Component {
     state = {
         filter: '',
-        filterValue: '',
-        data: [
-            {
-                firstname: "Test",
-                lastname: "yang",
-
-            },
-            {
-                firstname: "tou",
-                lastname: "lee",
-
-            },
-            {
-                firstname: "var",
-                lastname: "char",
-
-            },
-            {
-                firstname: "monkey",
-                lastname: "bananna",
-                          
-            },
-
-          ]
+        test:''
+        
     }
-    
+
     handleNewChange = event =>{
-        this.setState({ filter: this.state.filterValue })
+        // const { filter } = this.state;
+        // const lowercasedFilter = filter.toLowerCase();
+        // const filteredData = this.props.map.mapLocation.filter(item => {
+        //   if (Object.keys(item).some(key =>
+        //     item.address.toLowerCase().includes(lowercasedFilter))){
+        //         return item;
+        //     }
+        //   return Object.keys(item).some(key =>
+        //     item.name.toLowerCase().includes(lowercasedFilter)
+        //   );
+        // });
+        // this.props.dispatch({ type: GET_LOCATION_ACTION.UPDATE , payload: filteredData })
+        // console.log('scoobyDoo', filteredData)
+        this.props.onChange(this.state.filter)
     };
 
     handleChange = event => {
-        this.setState({ filterValue: event.target.value });
+        this.setState({ filter: event.target.value });
+        
       };
 
-
     render() {
-        const { filter, data } = this.state;
-        const lowercasedFilter = filter.toLowerCase();
-        const filteredData = data.filter(item => {
-          return Object.keys(item).some(key =>
-            item[key].toLowerCase().includes(lowercasedFilter)
-          );
-        });
         return (
-            <div>
+            <div class="active-cyan-4 mb-4">
             <input
+            class="form-control"
             type = "text"
-            placeholder= "search"
-             onChange={this.handleChange} />
-            {filteredData.map(item => (
-              <div key={item.firstname}>
-                <div>
-                  {item.firstname} {item.lastname}
-                </div>
-                
-              </div>
-              
-            ))}
-            <button onClick={this.handleNewChange}> search</button>
+            aria-label="Search"
+             onChange={this.handleChange}  />
+           
+            <Button
+            variant="outlined" size="small" color="primary"
+             className="button" onClick={this.handleNewChange}> 
+             search
+             </Button>
+            {/* <button onClick={this.onChangeData.bind(this)} >Test Button</button> */}
+           
           </div>
         )
+    
     }
 }
 
-export default SearchBar
+export default connect(mapStateToProps)(SearchBar)

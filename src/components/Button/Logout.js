@@ -8,15 +8,15 @@ const mapStateToProps = state => ({
     // userinfo: state.userinfo
   });
 
-  
 
 class LogoutButton extends Component{
     logout = () => {
         this.props.dispatch(triggerLogout());
-        // this.props.history.push('home');
+        // this.props.history.push('/home');
       }
     
 render(){
+
     return(
         <div>
         <Button onClick={this.logout} >

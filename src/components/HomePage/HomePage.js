@@ -17,6 +17,10 @@ export class homepage extends Component {
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
   }
 
+  handle = (event) =>{
+    console.log('did we get this?')
+  }
+
   render() {
     let content = null;
     return (

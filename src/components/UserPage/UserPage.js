@@ -17,6 +17,18 @@ const mapStateToProps = state => ({
 
 
 class UserPage extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+       edit: false,
+       save:true,
+       cancel: true,
+
+    }
+}
+
+
+
   componentDidMount() {
     // this.props.dispatch({ type: USER_INFO.FETCH_USERINFO })
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
@@ -28,20 +40,41 @@ class UserPage extends Component {
       this.props.history.push('home');
     }
   }
+  
+  handleToggleEdit(){
+    this.setState({
+      edit: true
+    })
+  }
+
+
+  handleToggleSave(){
+    if(this.state.edit === true){
+
+    }
+  }
+
+  handleToggleCancel(){
+
+  }
 
 
   render() {
+    console.log(this.state)
     let content = null;
     console.log('test', this.props.user)
     if (this.props.user.user_type === 'owner') {
       content = (
         <div>
 
-          <h1>Welcome, {this.props.user.userName} to Treasure Trove </h1>
+          <h1>Welcome to Treasure Trove </h1>
           <p>Your name is:{this.props.user.firstname} {this.props.user.lastname}</p>
           <p>Your from:{this.props.user.city}</p>
             <p>Your UserID is: {this.props.user.id}</p>
             <p> You're a: {this.props.user.user_type}</p>
+            <button onClick={this.handleToggleEdit}>Edit</button>
+            <button >Save</button>
+            <button >Cancel</button>
         </div>
       )
     } else {
@@ -66,6 +99,7 @@ class UserPage extends Component {
                 {/* {personTable} */}
               </tbody>
             </table>
+        
           </div>
         )
       )

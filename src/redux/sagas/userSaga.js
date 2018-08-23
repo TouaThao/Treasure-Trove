@@ -1,6 +1,6 @@
 import { put,  takeLatest } from 'redux-saga/effects';
 import { USER_ACTIONS } from '../actions/userActions';
-import { callUser } from '../requests/userRequests';
+import { callUser, callUserUpdate } from '../requests/userRequests';
 // import { func } from 'prop-types';
 // import Axios from 'axios';
 
@@ -28,6 +28,23 @@ function* fetchUser() {
 }
 
 
+// function* fetchUpdateUser(action){
+//   try{
+//       console.log('did we get to update user?', action)
+//       yield fetchUpdateUser(action.payload);
+//       const getUpdateUser = yield callUser();
+//       yield put({
+//           type: USER_ACTIONS.SETUPDATE,
+//               getUpdateUser
+//       })
+//   } catch(error){
+//       console.log('error',error)
+//   }
+  
+// }
+
+
+
 /*
   Starts fetchUser on each dispatched `FETCH_USER` action.
   Allows concurrent fetches of user.
@@ -45,6 +62,7 @@ function* fetchUser() {
 */
 function* userSaga() {
   yield takeLatest(USER_ACTIONS.FETCH_USER, fetchUser); 
+  // yield takeLatest(USER_ACTIONS.ADD_FEEDBACK, fetchUpdateUser); 
 }
 
 
