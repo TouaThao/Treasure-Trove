@@ -16,7 +16,8 @@ import { FEEDBACK_ACTION } from '../../redux/actions/FeedBackAction'
 
 const mapStateToProps = state => ({
     user: state.user,
-    feedback: state.feedback
+    feedback: state.feedback,
+    reduxState: state,
 });
 
 class OwnerFeedBackPage extends Component {
@@ -50,13 +51,7 @@ class OwnerFeedBackPage extends Component {
     }
 
     render() {
-        // let content = null;
-        // if(this.props.user.user_type === 'owner'){
-        //     content = (
-        //         <hi>Owner only</hi>
-        //     )
-        // } else{
-            console.log(this.props)
+            // console.log('itjeiojfois',this.props)
         return (
             <div>
                 <Nav />

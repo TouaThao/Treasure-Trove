@@ -11,7 +11,7 @@ export function callUser() {
     .catch((error) => { throw error.response || error; });
 }
 
-export function callUserUpdate(action){
+export function fetchEdit(action){
   console.log('Now we in request', action)
   return axios.put(`/api/user/${action[0]}`,action[1])
   .then(response => response.data)

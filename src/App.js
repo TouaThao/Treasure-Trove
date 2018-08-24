@@ -16,6 +16,10 @@ import EditPage from './components/EditProfile/EditProfile'
 import registerLocation from './components/RegisterLocation/RegisterLocation'
 import FeedBack from './components/OwnerFeedBackPage/OwnerFeedBackPage'
 
+///dynamic
+import locationInfoPage from './components/LocationInfoPage/LocationInfoPage'
+
+
 import './styles/main.css';
 
 const App = () => (
@@ -44,6 +48,10 @@ const App = () => (
           path="/info"
           component={InfoPage}
         />
+        <Route
+          path="/location/:id"
+          component={locationInfoPage}
+        />
                 <Route
           path="/edit"
           component={EditPage}
@@ -56,6 +64,7 @@ const App = () => (
           path="/registerlocation"
           component={registerLocation}
         />
+                       
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
 

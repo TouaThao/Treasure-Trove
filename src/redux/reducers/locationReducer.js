@@ -23,6 +23,15 @@ const mapLocation = ( state = [], action )=>{
     }
 }
 
+const store = (state =[], action)=>{
+    switch(action.type){
+        case GET_LOCATION_ACTION.SET_STORE:
+            return action.payload
+        default:
+            return state
+    }
+}
+
 // const filterSearch = (state = [], action )=>{
 //     switch(action.type){
 //         case GET_LOCATION_ACTION.UPDATE:
@@ -35,6 +44,7 @@ const mapLocation = ( state = [], action )=>{
 export default combineReducers ({
     location,
     mapLocation,
+    store,
     // filterSearch,
 })
 

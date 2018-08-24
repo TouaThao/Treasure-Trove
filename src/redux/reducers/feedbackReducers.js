@@ -2,12 +2,13 @@ import { combineReducers } from 'redux';
 
 //feedback action
 
-import { USER_ACTIONS } from '../actions/userActions';
+import {FEEDBACK_ACTION} from '../actions/FeedBackAction'
 
 const review = (state = [], action)=>{
+    console.log('did we hit reducer', action)
     switch(action.type){
-        case USER_ACTIONS.SET_USER:
-        return action.user.review || state;
+        case FEEDBACK_ACTION.SET_USER:
+            return action.payload
         default:
         return state;
     }
@@ -16,5 +17,4 @@ const review = (state = [], action)=>{
 
 export default combineReducers ({
     review
-
 })

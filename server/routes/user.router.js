@@ -44,46 +44,20 @@ router.get('/logout', (req, res) => {
 });
 
 
-router.put('/:id',rejectUnauthenticated,(req, res)=>{
-  console.log('Did we hitthisstuffhere?',req.body,'how about id?', req.user)
+router.put('/:id',(req, res)=>{
   updateUser = req.body
   if(req.isAuthenticated()){
     console.log('did routerpost show',req.body)
     let queryText = `UPDATE person SET firstname =$2, lastname=$3, city=$4 WHERE id = $1;`;
-    pool.query(queryText[req.user.id, updateUser.firstname, updateUser.lastname, updateUser.city])
-    .then((result)=>{
-      console.log('user info', result.row)
-      res.send(result.rows);
+    pool.query(queryText, [req.user.id, updateUser.firstname, updateUser.lastname, updateUser.city])
+    .then(()=>{
+      res.sendStatus(200);
     })
     .catch((error)=>{
-      console.log(error)
+      console.log('------error--------\n',error)
       res.sendStatus(500);
     })
   }
 })
 
-
-router.delete
-
-
 module.exports = router;
-
-
-
-// router.put('/:id', rejectUnauthenticated, (req, res) => {
-//   // PUT request to update user information
-//   const newUserData = req.body
-  
-//   const queryText = `UPDATE "person" SET "email" = $2, "first_name" = $3, "middle_name" = $4, "last_name" = $5, "primary_phone" = $6, "address" = $7, "city" = $8, "state" = $9, "zipcode" = $10
-//   WHERE "id" = $1;`;
-
-//   const serializedData = [req.user.id, newUserData.email, newUserData.first_name, newUserData.middle_name, newUserData.last_name, newUserData.primary_phone, newUserData.address, newUserData.city, newUserData.state, newUserData.zipcode];
-
-//   pool.query(queryText, serializedData)
-//     .then((result) => {
-//       res.sendStatus(201);
-//     })
-//     .catch((error) => {
-//       res.sendStatus(500);
-//     })
-// });

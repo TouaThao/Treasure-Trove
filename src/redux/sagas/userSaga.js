@@ -1,6 +1,6 @@
 import { put,  takeLatest } from 'redux-saga/effects';
 import { USER_ACTIONS } from '../actions/userActions';
-import { callUser, callUserUpdate } from '../requests/userRequests';
+import { callUser, fetchEdit } from '../requests/userRequests';
 // import { func } from 'prop-types';
 // import Axios from 'axios';
 
@@ -28,20 +28,18 @@ function* fetchUser() {
 }
 
 
-// function* fetchUpdateUser(action){
-//   try{
-//       console.log('did we get to update user?', action)
-//       yield fetchUpdateUser(action.payload);
-//       const getUpdateUser = yield callUser();
-//       yield put({
-//           type: USER_ACTIONS.SETUPDATE,
-//               getUpdateUser
-//       })
-//   } catch(error){
-//       console.log('error',error)
-//   }
+function* fetchUpdateUser(action){
+  try{
+      console.log('did we get to update user?', action)
+      yield fetchEdit(action.payload);
+      yield put({
+          type: USER_ACTIONS.FETCH_USER
+      })
+  } catch(error){
+      console.log('error',error)
+  }
   
-// }
+}
 
 
 
@@ -62,7 +60,7 @@ function* fetchUser() {
 */
 function* userSaga() {
   yield takeLatest(USER_ACTIONS.FETCH_USER, fetchUser); 
-  // yield takeLatest(USER_ACTIONS.ADD_FEEDBACK, fetchUpdateUser); 
+  yield takeLatest(USER_ACTIONS.ADD_EDIT, fetchUpdateUser); 
 }
 
 

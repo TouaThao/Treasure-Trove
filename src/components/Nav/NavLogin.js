@@ -55,11 +55,6 @@ class NavLogin extends Component {
         </Link>
             </li>
             <li>
-              <Link to="/edit">
-                Edit Profile
-        </Link>
-            </li>
-            <li>
             {linkb}
             </li>
             <li>
@@ -80,11 +75,6 @@ class NavLogin extends Component {
             <li>
               <Link to="/user">
                 Profile
-        </Link>
-            </li>
-            <li>
-              <Link to="/edit">
-                Edit Profile
         </Link>
             </li>
             <li>

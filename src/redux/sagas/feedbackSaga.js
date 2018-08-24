@@ -1,54 +1,51 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import { FEEDBACK_ACTION } from '../actions/FeedBackAction'
 import { USER_ACTIONS } from '../actions/userActions'
-import { postFeedBackToDataBase, getFeedback } from '../requests/feedbackRequest'
+import { postFeed, getFeedback, deleteFeedBackDatabase } from '../requests/feedbackRequest'
 
-
+//good
 function* fetchFeedBack(){
     try{
-        const feedback= yield getFeedback()
+        const feed = yield getFeedback();
         yield put({
-            type: FEEDBACK_ACTION.SET,
-            payload: feedback
-        });
+            type: FEEDBACK_ACTION.SET_USER,
+            payload:feed
+        })
     }catch(error){
         console.log('got error on feedback GET Route',error)
     }
 }
 
+//good
+function* postFeedBack(action){
+    try{
 
-// function* postFeedBack(action) {
+        yield postFeed(action.payload);
+        yield put({
+            type:FEEDBACK_ACTION.FETCH_USER 
+        })
+    }catch(error){
+        console.log('error on post', error)
+    }
+}
 
-//     try {
-//         yield put({
-//             type: USER_ACTIONS.ADD_FEEDBACK,
-//             payload: action.payload
-//         });
-//         yield addFavoriteToDatabase(action);
-//         const user = yield getFavorite();
-//         console.log('getting update user:',user);
-//         yield put({
-//             type: USER_ACTIONS.SET_FAVORITES,
-//             user
-//         });
 
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
-
-// function* deleteFeedBack(action){
-//     console.log('did we hit delete', action)
-//     try{
-//         yield deleteFeedBackDatabase(action.payload)
-//         const feedback = yield get
-//     }
-// }
+function* deleteFeedBack(action){
+    console.log('did we hit delete', action)
+    try{
+        yield deleteFeedBackDatabase(action.payload);
+        yield put({
+            type: FEEDBACK_ACTION.FETCH_USER
+        })
+    }catch(error){
+        console.log('error', error)
+    }
+}
 
 function* feedbackSaga(){
-    yield takeEvery(FEEDBACK_ACTION.GET ,fetchFeedBack )
-    // yield takeEvery(FEEDBACK_ACTION.ADD,postFeedBack)
-    // yield takeEvery(FEEDBACK_ACTION.DELETE,deleteFeedBack)
+    yield takeEvery(FEEDBACK_ACTION.FETCH_USER ,fetchFeedBack )
+    yield takeEvery(FEEDBACK_ACTION.POST, postFeedBack)
+    yield takeEvery(FEEDBACK_ACTION.DELETE,deleteFeedBack)
 }
 
 export default feedbackSaga
