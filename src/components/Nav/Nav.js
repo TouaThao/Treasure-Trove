@@ -35,6 +35,7 @@ class Nav extends Component {
       return (
              content = (
           <div>
+           
             <NavLogin loginStatus='true' userType={this.props.user.user_type}/>
           </div>
         )

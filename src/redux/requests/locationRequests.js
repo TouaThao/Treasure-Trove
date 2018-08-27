@@ -23,10 +23,8 @@ export function runGetLatLong(){
     .catch((error) => { throw error; });
 }
 
-
+//this is good
 export function fetchUserStore(action){
-    // console.log('are we hitting the store?',action)
-
     return axios.get(`/api/place/store/${action}`)
     .then(response => response.data)
     .catch((error) => { throw error; });

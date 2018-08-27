@@ -1,12 +1,12 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import { FEEDBACK_ACTION } from '../actions/FeedBackAction'
-import { USER_ACTIONS } from '../actions/userActions'
 import { postFeed, getFeedback, deleteFeedBackDatabase } from '../requests/feedbackRequest'
 
 //good
-function* fetchFeedBack(){
+function* fetchFeedBack(action){
+    console.log('feedbackget',action.payload)
     try{
-        const feed = yield getFeedback();
+        const feed = yield getFeedback(action);
         yield put({
             type: FEEDBACK_ACTION.SET_USER,
             payload:feed
@@ -19,10 +19,10 @@ function* fetchFeedBack(){
 //good
 function* postFeedBack(action){
     try{
-
         yield postFeed(action.payload);
         yield put({
-            type:FEEDBACK_ACTION.FETCH_USER 
+            type:FEEDBACK_ACTION.FETCH_USER,
+            payload: action.payload.place_id
         })
     }catch(error){
         console.log('error on post', error)
@@ -31,11 +31,15 @@ function* postFeedBack(action){
 
 
 function* deleteFeedBack(action){
-    console.log('did we hit delete', action)
     try{
-        yield deleteFeedBackDatabase(action.payload);
+        console.log('did we hit delete on saga', action)
+        yield deleteFeedBackDatabase(action.payload.review_id);
+        console.log('retriving data after delete');
+
         yield put({
-            type: FEEDBACK_ACTION.FETCH_USER
+            type: FEEDBACK_ACTION.FETCH_USER,
+            payload: action.payload.place_id
+
         })
     }catch(error){
         console.log('error', error)

@@ -46,12 +46,11 @@ class OwnerFeedBackPage extends Component {
         });
     }
 
-    handleDelete = ()=>{
+    handleDelete = (action)=>{
         this.props.dispatch({ type:FEEDBACK_ACTION.DELETE})
     }
 
     render() {
-            // console.log('itjeiojfois',this.props)
         return (
             <div>
                 <Nav />

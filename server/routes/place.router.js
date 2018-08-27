@@ -16,7 +16,6 @@ router.get('/address', (req, res) => {
 });
 
 router.get('/store/:id', (req, res) => {
-    console.log('router store');
     const queryText =`SELECT * from place where user_id = ${req.params.id};`
     pool.query(queryText)
     .then((results) => {
@@ -27,12 +26,11 @@ router.get('/store/:id', (req, res) => {
 });
 
 
-router.get('/feedback', (req,res)=>{
-    console.log('did we get feedback?')
-    const queryText = `SELECT * from review;`
+router.get('/feedback/:id', (req,res)=>{
+    console.log('did we get feedback?', req.params.id)
+    const queryText = `SELECT * from review r inner join person p on p.id = r.user_id where r.place_id=${req.params.id};`
     pool.query(queryText)
     .then((results) => {
-        console.log('good')
         res.send(results.rows)
     }).catch((err) => {
         console.log('bad')
@@ -57,9 +55,7 @@ pool.query(queryText, [location.name,location.address,
 });
 
 router.post('/review', (req,res)=>{
-    console.log('did we hit review?')
     const review = req.body
-    console.log('what is req',req.body)
     const queryText= `INSERT INTO review (user_id,place_id,comment) VALUES($1,$2,$3);`
     pool.query(queryText, [ review.user_id, review.place_id, review.comment])
     .then((results) => {
@@ -72,8 +68,7 @@ router.post('/review', (req,res)=>{
 router.delete('/:id', (req,res)=>{
     if (req.isAuthenticated()){
         let id = req.params.id
-        console.log('did we hit delete')
-        let queryText = `DELETE from review WHERE review_id =$1;`
+        let queryText = `DELETE from review WHERE review_id = $1;`
         pool.query(queryText, [id] )
         .then((results) => {
             res.sendStatus(201)

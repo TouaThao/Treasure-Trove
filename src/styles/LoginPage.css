@@ -1,8 +1,22 @@
 #form {
     left: 50%;
-    top: 51%;
+    top: 65%;
     margin-left: -15%;
     position: absolute;
     margin-top: -25%;
     height: 230px;
+    opacity: 0.9
+}
+
+#loginpicture {
+    top:1px;
+
+}
+
+#loginButtonRight{
+    right:  -74px;
+}
+
+#loginButtonLeft{
+    left: 79px;
 }

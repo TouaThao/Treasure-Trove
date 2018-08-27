@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { GET_LOCATION_ACTION } from '../../redux/actions/LocationAction'
+import {  withRouter} from 'react-router-dom';
 // import NavLogin from '../Nav/NavLogin'
 import Nav from '../Nav/Nav'
 
@@ -132,4 +133,4 @@ class RegisterLocation extends Component {
 
 
 
-export default connect(mapStateToProps)(RegisterLocation)
+export default withRouter(connect(mapStateToProps)(RegisterLocation))

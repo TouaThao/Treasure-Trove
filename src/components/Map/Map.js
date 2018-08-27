@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
+import {  withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import {  Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import './map.css';
 //action
 import { GET_MAP } from '../../redux/actions/MapAction'
 
 //componenet 
 import SearchBar from '../Map/SearchBar'
+import '../../styles/main.css'
 
 //Child componenet
 
@@ -21,7 +23,9 @@ class MapContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showNewSearch :'' ,
+            link: true,
+            search: '',
+            vendor: '',
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
@@ -32,14 +36,18 @@ class MapContainer extends Component {
 
             zoom: 12,
         };
-        this.onMarkerClick = this.onMarkerClick.bind(this);
-        this.onMapClick = this.onMapClick.bind(this);
 
     }
 
-    onChangeLinkName(newName){
+    handleSearchBar(object){
         this.setState({
-            showNewSearch : newName
+            search : object.target.value
+        })
+    }
+
+    handelVendorSelector(object){
+        this.setState({
+            vendor: object.target.value
         })
     }
 
@@ -47,15 +55,21 @@ class MapContainer extends Component {
         this.setState({
             selectedPlace: this.props.reduxState.map.mapLocation[props.name],
             activeMarker: marker,
-            showingInfoWindow: true
+            showingInfoWindow: true,
+            link: !this.state.link
         });
     }
+
+    handle = (props) => {
+        console.log('click')
+    }
+    
 
     onMapClick = (props) => {
         if (this.state.showingInfoWindow) {
             this.setState({
                 showingInfoWindow: false,
-                activeMarker: null
+                activeMarker: null,
             });
         }
     }
@@ -65,28 +79,48 @@ class MapContainer extends Component {
         this.props.dispatch({ type: GET_MAP.GET });
     }
 
-    // pushToFeedback = (event) => {
-    //     event.preventDefault();
-    //     // this.props.history.push('/feedback')
-    //     console.log('Are we getting this stuff')
-    // }
 
-    handle = (event) => {
-        console.log('did we get this?')
-    }
+    handleSendToFeedBackPage = (event)=>{
+        console.log('click', event.target);
+        this.props.history.push('/location/' + event.target.value)
+    
+      }
 
-    render() {
+    //   handleShowLink = () => {
+    //     this.setState({
+    //         link: !this.state.link
+    //     });
+    //   }
+    render() { 
+        let linkB = null;
+        if(this.props.user.user_type === 'viewer'){
+            linkB =       
+            <button id="feedbacklocation"
+            value={this.state.selectedPlace.id}
+             onClick={this.handleSendToFeedBackPage}
+             hidden={(this.state.link)} 
+             >Give FeedBack</button>
+        } else{
+            linkB = ''
+        }
+        console.log('dragonzilla', this.props.user.user_type)
         console.log('catzilla', this.props.reduxState)
+        console.log('wetestingvendorisonhere', this.state)
+        console.log('KingKong', this.props.reduxState.map.mapLocation)
         let mapLatLong = this.props.reduxState.map.mapLocation;
-        const lowercasedFilter = this.state.showNewSearch.toLowerCase();
+        const lowercasedFilter = this.state.search.toLowerCase();
+        const vendor = this.state.vendor.toLowerCase();
         const filteredData = mapLatLong.filter(item => {
           if (Object.keys(item).some(key =>
-            item.address.toLowerCase().includes(lowercasedFilter))){
-                return item;
+            item.vendor.toLowerCase().includes(vendor))){
+                if (Object.keys(item).some(key =>
+                  item.address.toLowerCase().includes(lowercasedFilter))){
+                      return item;
+                  }
+                return Object.keys(item).some(key =>
+                  item.name.toLowerCase().includes(lowercasedFilter)
+                );
             }
-          return Object.keys(item).some(key =>
-            item.name.toLowerCase().includes(lowercasedFilter)
-          );
         });
 
         let mapMarker = filteredData.map(((place, i) => {
@@ -102,29 +136,40 @@ class MapContainer extends Component {
 
         return (
             <div className="mapContainer">
-                <SearchBar
-                onChange = {this.onChangeLinkName.bind(this)}
+            
+                <SearchBar 
+                searchHandler = {this.handleSearchBar.bind(this)}
+                vendorHandler = {this.handelVendorSelector.bind(this)}
                 />
+                 {linkB}
+                 <br></br>
                 <Map
                     onClick={this.onMapClick}
                     google={this.props.google}
                     zoom={this.state.zoom}
                     initialCenter={this.state.latLng}
                 >
+                
                     {mapMarker}
+                    
                     <InfoWindow
+                        
                         marker={this.state.activeMarker}
                         visible={this.state.showingInfoWindow}
                     >
+                    
                         <div>
+                       
                             <h4>{this.state.selectedPlace.name}</h4>
                             <h4>{this.state.selectedPlace.address}</h4>
                             <h4>{this.state.selectedPlace.city}</h4>
                             <h4>{this.state.selectedPlace.vendor}</h4>
-                            {/* <button onClick={this.handle}>Testing</button> */}
                         </div>
                     </InfoWindow>
+                    
+                    
                 </Map>
+                
             </div>
         )
     }
@@ -134,5 +179,5 @@ const connectToGoogleMaps = GoogleApiWrapper({
     apiKey: ('AIzaSyAfrUvtgh7j4JKGW6bkFPspZ4ZZ8uqlE-M')
 })(MapContainer)
 
-export default connect(mapStateToProps)(connectToGoogleMaps)
+export default withRouter(connect(mapStateToProps)(connectToGoogleMaps))
 

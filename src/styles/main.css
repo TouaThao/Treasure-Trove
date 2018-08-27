@@ -8,10 +8,11 @@ body {
 }
 
 .instructions {
-    background-color: #00acb0;
-    padding: 5px;
+    background-color: #d32323;
+    padding: 1px;
     color: #ece7e7;
 }
+
 
 form {
     background-color: #dbd5d5;
@@ -48,9 +49,10 @@ input[type="submit"] {
 }
 
 .navbar {
-  background-color: #00acb0;
+  background-color: #d32323;
   width: 100%;
   border-radius: 0px;
+  margin-bottom: 0px
 }
 
 ul {
@@ -77,4 +79,174 @@ li a {
 li a:hover {
     text-decoration: underline;
     color: #eee;
+}
+
+
+#welcome{
+     font-family: cursive; 
+     font-size: 24px; 
+     font-style: normal; 
+     font-variant: normal; 
+     font-weight: 700; 
+     line-height: 26.6px; 
+}
+
+#welcomeTwo{
+    color:white;
+    font-family: cursive; 
+    font-size: 24px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 700; 
+    line-height: 26.6px; 
+}
+
+#cardimg{
+    float: left;
+   width: 200px;
+   height: 150px;
+   
+}
+
+/* #feedback{
+    
+   width: 500px;
+   height: auto;
+   
+} */
+
+#userpage{
+
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+
+}
+
+#footer{
+    height:45px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#treasure{
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    left: 20px;
+    top: -5px
+}
+
+#otherlink{
+    font-size: 20px;
+    color: white;
+    position: fixed;
+    right:  20px;
+
+}
+
+#LoginNavHome{
+    font-size: 20px;
+    color: white;
+    position: fixed;
+    right:  350px;
+    top: -5px;
+
+}
+
+#LoginNavProfile{
+    font-size: 20px;
+    color: white;
+    position: fixed;
+    right:  280px;
+    top: -5px;
+}
+
+#LoginNavLocation{
+    font-size: 20px;
+    color: white;
+    position: fixed;
+    right:  190px;
+    top: -5px;
+
+}
+
+#LoginNavLogout{
+    font-size: 20px;
+    color: white;
+    position: fixed;
+    right:  130px;
+    top: 10px;
+}
+
+.form-control-A{
+    display: block;
+    width: 350px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    position: relative;
+}
+
+
+#submit{
+    float: right;
+    position: fixed;
+    padding: 5px;
+    margin: 5px;
+    width: 55px;
+}
+
+#locationCard{
+    position: relative;
+    width: 300px;
+    margin: 10px;
+}
+
+#HomePage{
+position: relative;
+width:1152px;
+height:650px;
+}
+
+
+
+.hero-image {
+
+    background-image: url("./black-and-white-bus-buying-1264937.jpg");
+    background-size: cover;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    opacity: 0.9;
+
+}
+
+#copy{
+    color:white;
+    font-family: cursive; 
+    font-size: 24px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 700; 
+    line-height: 26.6px; 
+}
+
+#feedbacklocation{
+    margin: auto;
+    width: 100%;
+    color: blue;
+    border:white;
+    padding: 5px;
 }

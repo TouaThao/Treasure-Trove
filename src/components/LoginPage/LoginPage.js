@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+import Nav from '../../components/Nav/Nav';
+import Truck from '../BackGround/black-and-white-bus-buying-1264937.jpg'
 
 ////material ui
 // import Input from '@material-ui/core/Input';
@@ -70,10 +72,11 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
+        <Nav/>
         {this.renderAlert()}
+        < img id="loginpicture" src={Truck}   width="100%" height="100%"/>
         <form id="form" onSubmit={this.login}>
           <h1 class="animated lightSpeedIn delay-2s ">Login</h1>
-          <div>
             <label htmlFor="username">
               Username:
               <input
@@ -83,7 +86,6 @@ class LoginPage extends Component {
                 onChange={this.handleInputChangeFor('username')}
               />
             </label>
-          </div>
           <div>
             <label htmlFor="password">
               Password:
@@ -96,9 +98,9 @@ class LoginPage extends Component {
             </label>
           </div>
           <div>
-            <Button variant="contained" color="primary" onClick={this.login}>Login</Button>
+            <Button id="loginButtonRight" variant="contained" color="primary" onClick={this.login}>Login</Button>
     
-            <Button variant="contained" color="primary"><Link to="/register" >Register</Link></Button>
+            <Button id="loginButtonLeft" variant="contained" color="primary"><Link to="/register" >Register</Link></Button>
           </div>
         </form>
       </div>

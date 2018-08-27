@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Logout from '../Button/Logout'
 
 
+import '../../styles/main.css'
+
 class NavLogin extends Component {
   constructor(props, context) {
     super(props, context);
@@ -25,14 +27,9 @@ class NavLogin extends Component {
     if (this.props.userType === 'owner') {
       linkb =
       <ul>
-      <li>
+      <li id="LoginNavLocation">
               <Link to="/registerlocation">
               Location
-        </Link>
-        </li>
-        <li>
-              <Link to="/FeedBack">
-              FeedBack
         </Link>
         </li>
         </ul>
@@ -43,13 +40,14 @@ class NavLogin extends Component {
     if (this.props.loginStatus === 'true') {
       return (
         <div className='navbar'>
+         <h1 id="treasure" >Treasure Trove</h1>
           <ul>
-            <li>
-              <Link to="/home">
+            <li id="LoginNavHome">
+              <Link   to="/home">
                 Home Page
         </Link>
             </li>
-            <li>
+            <li id="LoginNavProfile" >
               <Link to="/user">
                 Profile
         </Link>
@@ -57,7 +55,7 @@ class NavLogin extends Component {
             <li>
             {linkb}
             </li>
-            <li>
+            <li  id="LoginNavLogout">
               <Logout></Logout>
             </li>
           </ul>
@@ -67,7 +65,7 @@ class NavLogin extends Component {
       return (
         <div className='navbar'>
           <ul>
-            <li>
+            <li >
               <Link to="/home">
                 Home Page
         </Link>

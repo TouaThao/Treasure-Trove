@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-export function getFeedback(){
-    return axios.get('/api/place/feedback')
+export function getFeedback(action){
+    console.log('did we hitgetfeedback',action)
+    return axios.get(`/api/place/feedback/${action.payload}`)
     .then(response => response.data)
     .catch((error) => { throw error; });
 }

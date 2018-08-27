@@ -62,6 +62,11 @@ class RegisterPage extends Component {
       [propertyName]: event.target.value,
     });
   }
+  handleSendToHome = (event) => {
+    event.preventDefault();
+    this.props.history.push('/home')
+  }
+
 
   renderAlert() {
     if (this.state.message !== '') {
@@ -149,6 +154,7 @@ class RegisterPage extends Component {
            <label><input value='viewer' onChange={this.handleInputChangeFor('user_type')} type="radio" name="optradio" ></input>NO</label> 
            <br/>
             <Button
+              onClick={this.handleSendToHome}
               color="primary"
               type="submit"
               name="submit"

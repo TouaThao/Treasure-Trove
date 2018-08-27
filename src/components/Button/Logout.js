@@ -3,6 +3,9 @@ import { triggerLogout } from '../../redux/actions/loginActions';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 
+//css
+
+
 const mapStateToProps = state => ({
     user: state.user,
     // userinfo: state.userinfo
@@ -19,7 +22,7 @@ render(){
 
     return(
         <div>
-        <Button onClick={this.logout} >
+        <Button className="Logoutbutton" onClick={this.logout} >
         logout
         </Button>
         </div>

@@ -8,61 +8,51 @@ import Button from '@material-ui/core/Button';
 //css
 import '../../styles/SearchBar.css'
 
+//img
+import Pho from '../BackGround/Pho-Beef-Noodles-2008.jpg'
+//                < img src={Pho} align="center" width="552" height="300" />
+
 const mapStateToProps = (state) => ({
-  map: state.map,
+    map: state.map,
 }
 );
 
 
 
 class SearchBar extends Component {
-    state = {
-        filter: '',
-        test:''
-        
-    }
-
-    handleNewChange = event =>{
-        // const { filter } = this.state;
-        // const lowercasedFilter = filter.toLowerCase();
-        // const filteredData = this.props.map.mapLocation.filter(item => {
-        //   if (Object.keys(item).some(key =>
-        //     item.address.toLowerCase().includes(lowercasedFilter))){
-        //         return item;
-        //     }
-        //   return Object.keys(item).some(key =>
-        //     item.name.toLowerCase().includes(lowercasedFilter)
-        //   );
-        // });
-        // this.props.dispatch({ type: GET_LOCATION_ACTION.UPDATE , payload: filteredData })
-        // console.log('scoobyDoo', filteredData)
-        this.props.onChange(this.state.filter)
-    };
-
-    handleChange = event => {
-        this.setState({ filter: event.target.value });
-        
-      };
 
     render() {
         return (
-            <div class="active-cyan-4 mb-4">
-            <input
-            class="form-control"
-            type = "text"
-            aria-label="Search"
-             onChange={this.handleChange}  />
-           
-            <Button
-            variant="outlined" size="small" color="primary"
-             className="button" onClick={this.handleNewChange}> 
-             search
+
+            <div class="input-group mb-1"  >
+
+                <input id="selector" 
+                    type="text" class="form-control"
+                    placeholder="Search"
+                     aria-label="Default" aria-describedby="Search"
+                    onChange={this.props.searchHandler}
+                />
+                <select id="selector"  onChange={this.props.vendorHandler}>
+                    <option value=''></option>
+                    <option value="foodtruck">FoodTruck</option>
+                    <option value="service">Service</option>
+                    <option value="restaurants">Restaurants</option>
+                </select>
+                <span>
+                   
+                    <Button id="selector" 
+                        variant="contained"size="small" color="primary"
+                        className="button" onClick={this.handleNewChange}>
+                        search
              </Button>
-            {/* <button onClick={this.onChangeData.bind(this)} >Test Button</button> */}
-           
-          </div>
+             
+                </span>
+
+                {/* <button onClick={this.onChangeData.bind(this)} >Test Button</button> */}
+
+            </div>
         )
-    
+
     }
 }
 
